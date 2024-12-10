@@ -15,13 +15,5 @@ export function ToggleSwitch({ power, onClick }: Props) {
         ></div>
       </div>
     </div>
-    // <div
-    //   onClick={onClick}
-    //   className={power ? "toggle-switch is-on" : "toggle-switch"}
-    // >
-    //   <div className="slider">
-    //     <div className="switch"></div>
-    //   </div>
-    // </div>
   );
 }
