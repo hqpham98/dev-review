@@ -1,0 +1,13 @@
+* {
+  box-sizing: border-box;
+}
+
+.circle {
+  display: flex;
+  border-radius: 50%;
+  border-style: solid;
+  width: 4rem;
+  height: 4rem;
+  justify-content: center;
+  align-items: center;
+}
