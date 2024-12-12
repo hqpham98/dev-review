@@ -1,0 +1,19 @@
+* {
+  box-sizing: border-box;
+}
+
+.card-wrapper {
+  width: 600px;
+}
+
+.card-header {
+  background-color: #dddddd;
+  border: 2px solid black;
+  margin-bottom: 0.25rem;
+  padding: 1rem 2rem;
+}
+
+.card-body {
+  border: 2px solid black;
+  margin-bottom: 0.25rem;
+}
