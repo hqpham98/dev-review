@@ -1,0 +1,20 @@
+          List of relations
+ Schema |    Name     | Type  | Owner 
+--------+-------------+-------+-------
+ public | actors      | table | henry
+ public | addresses   | table | henry
+ public | castMembers | table | henry
+ public | cities      | table | henry
+ public | countries   | table | henry
+ public | customers   | table | henry
+ public | filmGenre   | table | henry
+ public | films       | table | henry
+ public | genres      | table | henry
+ public | inventory   | table | henry
+ public | languages   | table | henry
+ public | payments    | table | henry
+ public | rentals     | table | henry
+ public | staff       | table | henry
+ public | stores      | table | henry
+(15 rows)
+
