@@ -16,7 +16,7 @@ app.get("/notes", function (req, res) {
 });
 
 app.post("/notes/:noteId", function (req, res) {
-  const noteId = req.params.noteId;
+  const { noteId } = req.params;
   res.send(`<p>I got your note #${noteId}</p>`);
 });
 
