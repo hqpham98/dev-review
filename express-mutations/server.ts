@@ -10,6 +10,7 @@ const db = new pg.Pool({
 
 const app = express();
 
+app.use(express.json());
 // Endpoint for testing
 app.get("/api/actors/:actorId", async (req, res, next) => {
   try {
@@ -33,7 +34,10 @@ app.get("/api/actors/:actorId", async (req, res, next) => {
 
 app.post("/api/actors", async (req, res, next) => {
   try {
-    const { firstName, lastName } = req.query;
+    const { firstName, lastName } = req.body;
+    if (!firstName || !lastName) {
+      throw new ClientError(400, "firstName and lastName are required");
+    }
     const sql = `
       INSERT INTO "actors" ("firstName", "lastName")
       VALUES ($1, $2)
@@ -48,6 +52,31 @@ app.post("/api/actors", async (req, res, next) => {
   }
 });
 
+app.delete("/api/actors/:actorId", async (req, res, next) => {
+  try {
+    const { actorId } = req.params;
+
+    if (!Number.isInteger(+actorId)) {
+      throw new ClientError(400, `Non-integer actorId: ${actorId}`);
+    }
+
+    const sql = `
+      DELETE FROM "actors"
+      WHERE "actorId" = $1
+      RETURNING *;
+    `;
+    const params = [actorId];
+    const result = await db.query(sql, params);
+
+    if (!result.rows.length) {
+      throw new ClientError(404, `actorId ${actorId} does not exist`);
+    }
+    const actor = result.rows[0];
+    res.sendStatus(204);
+  } catch (err) {
+    next(err);
+  }
+});
 app.use(errorMiddleware);
 
 app.listen(8080, () => {
