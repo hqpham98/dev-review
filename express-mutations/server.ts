@@ -19,8 +19,9 @@ app.get("/api/actors/:actorId", async (req, res, next) => {
       throw new ClientError(400, `Non-integer actorId: ${actorId}`);
     }
     const sql = `
-      select * from "actors"
-      where "actorId" = $1;
+      SELECT *
+      FROM "actors"
+      WHERE "actorId" = $1;
     `;
     const params = [actorId];
     const result = await db.query(sql, params);
