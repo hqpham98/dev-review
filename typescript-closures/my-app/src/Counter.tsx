@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps -- Delete this line! */
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from "react";
 
 type Data = {
   foo: string;
@@ -9,16 +9,13 @@ export function Counter() {
   const [data, setData] = useState<Data>();
   const [counter, setCounter] = useState(0);
 
+  const getData = useCallback(() => ({ foo: "bar" }), []);
+
   useEffect(() => {
     const data = getData();
     setData(data);
     setCounter((prev) => prev + 1);
   }, [getData]);
-
-  function getData() {
-    // fetch data
-    return { foo: 'bar' };
-  }
 
   return (
     <div>

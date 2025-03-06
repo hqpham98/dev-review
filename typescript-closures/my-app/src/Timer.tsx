@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps -- Delete this line! */
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 export function Timer() {
   const [time, setTime] = useState(0);
@@ -9,12 +9,12 @@ export function Timer() {
       console.log(`Time is: ${time}`);
     }, 1000);
     return () => clearTimeout(timerId);
-  }, []);
+  }, [time]);
 
   return (
     <div>
       {time}
-      <button onClick={() => setTime(0)} style={{ marginLeft: '1rem' }}>
+      <button onClick={() => setTime(0)} style={{ marginLeft: "1rem" }}>
         Reset
       </button>
     </div>
