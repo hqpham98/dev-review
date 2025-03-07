@@ -22,8 +22,8 @@ export function Todos() {
   useEffect(() => {
     async function getTodos() {
       try {
-        const result = await fetch("/api/todos");
-        const todosList = await result.json();
+        const response = await fetch("/api/todos");
+        const todosList = await response.json();
         setTodos(todosList);
       } catch (err) {
         console.log(err);
@@ -35,7 +35,21 @@ export function Todos() {
   }, []);
 
   /* Implement addTodo to add a new todo. Hints are at the bottom of the file. */
-  async function addTodo(newTodo: UnsavedTodo) {}
+  async function addTodo(newTodo: UnsavedTodo) {
+    try {
+      const response = await fetch("/api/todos", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newTodo),
+      });
+      const todo = await response.json();
+      setTodos((prevTodos) => [...prevTodos, todo]);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   /* Implement toggleCompleted to toggle the completed state of a todo. Hints are at the bottom of the file. */
   async function toggleCompleted(todo: Todo) {}
