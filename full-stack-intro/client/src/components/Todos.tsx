@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars -- Remove me */
 /* eslint-disable @typescript-eslint/no-empty-function -- Remove me */
-import { useEffect, useState } from 'react';
-import { PageTitle } from './PageTitle';
-import { TodoList } from './TodoList';
-import { TodoForm } from './TodoForm';
+import { useEffect, useState } from "react";
+import { PageTitle } from "./PageTitle";
+import { TodoList } from "./TodoList";
+import { TodoForm } from "./TodoForm";
 
 export type UnsavedTodo = {
   task: string;
@@ -19,7 +19,20 @@ export function Todos() {
   const [error, setError] = useState<unknown>();
 
   /* Implement useEffect to fetch all todos. Hints are at the bottom of the file. */
-  useEffect(() => {}, []);
+  useEffect(() => {
+    async function getTodos() {
+      try {
+        const result = await fetch("/api/todos");
+        const todosList = await result.json();
+        setTodos(todosList);
+      } catch (err) {
+        console.log(err);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    getTodos();
+  }, []);
 
   /* Implement addTodo to add a new todo. Hints are at the bottom of the file. */
   async function addTodo(newTodo: UnsavedTodo) {}
@@ -31,10 +44,10 @@ export function Todos() {
     return <div>Loading...</div>;
   }
   if (error) {
-    console.error('fetch error:', error);
+    console.error("fetch error:", error);
     return (
       <div>
-        Error! {error instanceof Error ? error.message : 'Unknown error'}
+        Error! {error instanceof Error ? error.message : "Unknown error"}
       </div>
     );
   }

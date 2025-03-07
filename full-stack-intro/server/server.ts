@@ -1,7 +1,7 @@
-import 'dotenv/config';
-import pg from 'pg';
-import express from 'express';
-import { ClientError, errorMiddleware } from './lib/index.js';
+import "dotenv/config";
+import pg from "pg";
+import express from "express";
+import { ClientError, errorMiddleware } from "./lib/index.js";
 
 type Todo = {
   entryId: number;
@@ -13,15 +13,13 @@ type Todo = {
 
 const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false,
-  },
+  ssl: false,
 });
 
 const app = express();
 app.use(express.json());
 
-app.get('/api/todos', async (req, res, next) => {
+app.get("/api/todos", async (req, res, next) => {
   try {
     const sql = `
       select *
@@ -35,11 +33,11 @@ app.get('/api/todos', async (req, res, next) => {
   }
 });
 
-app.post('/api/todos', async (req, res, next) => {
+app.post("/api/todos", async (req, res, next) => {
   try {
     const { task, isCompleted = false } = req.body;
-    if (!task || typeof isCompleted !== 'boolean') {
-      throw new ClientError(400, 'task and isCompleted are required');
+    if (!task || typeof isCompleted !== "boolean") {
+      throw new ClientError(400, "task and isCompleted are required");
     }
     const sql = `
       insert into "todos" ("task", "isCompleted")
@@ -55,15 +53,15 @@ app.post('/api/todos', async (req, res, next) => {
   }
 });
 
-app.put('/api/todos/:todoId', async (req, res, next) => {
+app.put("/api/todos/:todoId", async (req, res, next) => {
   try {
     const todoId = Number(req.params.todoId);
     if (!Number.isInteger(todoId) || todoId < 1) {
-      throw new ClientError(400, 'todoId must be a positive integer');
+      throw new ClientError(400, "todoId must be a positive integer");
     }
     const { task, isCompleted } = req.body;
-    if (typeof isCompleted !== 'boolean') {
-      throw new ClientError(400, 'isCompleted (boolean) is required');
+    if (typeof isCompleted !== "boolean") {
+      throw new ClientError(400, "isCompleted (boolean) is required");
     }
     const sql = `
       update "todos"
