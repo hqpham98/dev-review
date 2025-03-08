@@ -17,9 +17,11 @@ export function Todos() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<unknown>();
+  const [toggle, setToggle] = useState(false);
 
   /* Implement useEffect to fetch all todos. Hints are at the bottom of the file. */
   useEffect(() => {
+    console.log("hello");
     async function getTodos() {
       try {
         const response = await fetch("/api/todos");
@@ -32,7 +34,7 @@ export function Todos() {
       }
     }
     getTodos();
-  }, []);
+  }, [toggle]);
 
   /* Implement addTodo to add a new todo. Hints are at the bottom of the file. */
   async function addTodo(newTodo: UnsavedTodo) {
@@ -52,7 +54,24 @@ export function Todos() {
   }
 
   /* Implement toggleCompleted to toggle the completed state of a todo. Hints are at the bottom of the file. */
-  async function toggleCompleted(todo: Todo) {}
+  async function toggleCompleted(todo: Todo) {
+    const { task, isCompleted } = todo;
+    try {
+      const response = await fetch(`/api/todos/${todo.todoId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ task, isCompleted: !isCompleted }),
+      });
+
+      if (response.ok) {
+        setToggle((prev) => !prev);
+      }
+    } catch (err) {
+      console.log(error);
+    }
+  }
 
   if (isLoading) {
     return <div>Loading...</div>;

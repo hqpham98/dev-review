@@ -55,11 +55,13 @@ app.post("/api/todos", async (req, res, next) => {
 
 app.put("/api/todos/:todoId", async (req, res, next) => {
   try {
+    console.log("req.params.todoId", req.params.todoId);
     const todoId = Number(req.params.todoId);
     if (!Number.isInteger(todoId) || todoId < 1) {
       throw new ClientError(400, "todoId must be a positive integer");
     }
     const { task, isCompleted } = req.body;
+    console.log("req.body", req.body);
     if (typeof isCompleted !== "boolean") {
       throw new ClientError(400, "isCompleted (boolean) is required");
     }
