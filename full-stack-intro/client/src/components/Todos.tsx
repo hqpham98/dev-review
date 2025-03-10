@@ -21,14 +21,13 @@ export function Todos() {
 
   /* Implement useEffect to fetch all todos. Hints are at the bottom of the file. */
   useEffect(() => {
-    console.log("hello");
     async function getTodos() {
       try {
         const response = await fetch("/api/todos");
         const todosList = await response.json();
         setTodos(todosList);
       } catch (err) {
-        console.log(err);
+        setError(err);
       } finally {
         setIsLoading(false);
       }
@@ -49,7 +48,7 @@ export function Todos() {
       const todo = await response.json();
       setTodos((prevTodos) => [...prevTodos, todo]);
     } catch (err) {
-      console.log(err);
+      setError(err);
     }
   }
 
@@ -69,7 +68,7 @@ export function Todos() {
         setToggle((prev) => !prev);
       }
     } catch (err) {
-      console.log(error);
+      setError(err);
     }
   }
 
