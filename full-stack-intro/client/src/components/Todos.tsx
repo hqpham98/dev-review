@@ -30,6 +30,7 @@ export function Todos() {
         setError(err);
       } finally {
         setIsLoading(false);
+        console.log("worked");
       }
     }
     getTodos();
@@ -58,7 +59,7 @@ export function Todos() {
       const response = await fetch(`/api/todos/${todo.todoId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ todo }),
+        body: JSON.stringify(todo),
       });
       if (!response.ok) throw new Error(`fetch Error ${response.status}`);
       const updated = (await response.json()) as Todo;
