@@ -1,17 +1,36 @@
-set client_min_messages to warning;
+SET CLIENT_MIN_MESSAGES TO warning;
 
 -- DANGER: this is NOT how to do it in the real world.
--- `drop schema` INSTANTLY ERASES EVERYTHING.
-drop schema "public" cascade;
+-- `DROP SCHEMA` INSTANTLY ERASES EVERYTHING.
+DROP SCHEMA "public" CASCADE;
 
-create schema "public";
+CREATE SCHEMA "public";
 
-create table "public"."products" (
+CREATE TABLE "public"."products" (
   "productId"        serial,
-  "name"             text    not null,
-  "price"            integer not null,
-  "imageUrl"         text    not null,
-  "shortDescription" text    not null,
-  "longDescription"  text    not null,
-  primary key ("productId")
-)
+  "name"             text    NOT NULL,
+  "price"            integer NOT NULL,
+  "imageUrl"         text    NOT NULL,
+  "shortDescription" text    NOT NULL,
+  "longDescription"  text    NOT NULL,
+  PRIMARY KEY ("productId")
+);
+
+CREATE TABLE "public"."cart" (
+  "userId"           integer NOT NULL,
+  "productId"        integer NOT NULL,
+  "quantity"         integer NOT NULL,
+  PRIMARY KEY ("userId", "productId")
+);
+
+CREATE TABLE "public"."users" (
+  "userId"           serial,
+  "username"         text NOT NULL,
+  "hashedPassword"   text NOT NULL,
+  "createdAt"        timestamptz,
+  PRIMARY KEY ("userId")
+);
+
+ALTER TABLE "cart" ADD FOREIGN KEY ("userId") REFERENCES "users" ("userId");
+
+ALTER TABLE "cart" ADD FOREIGN KEY ("productId") REFERENCES "products" ("productId");

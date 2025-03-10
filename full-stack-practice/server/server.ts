@@ -10,11 +10,9 @@ const pool = new pg.Pool({
 const app = express();
 app.use(express.json());
 
-app.get("/api/catalog", (req, res, next) => {
-  res.send("hello");
-});
+app.get("/api/products", (req, res, next) => {});
 
-app.post("", (req, res, next) => {});
+app.post("/api/cart/:productId", (req, res, next) => {});
 
 app.listen(8080, () => {
   console.log("Listening on port 8080");
