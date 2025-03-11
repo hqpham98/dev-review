@@ -16,6 +16,7 @@ type CartEntry = {
   productId: number;
   quantity: number;
 };
+
 const connectionString = process.env.DATABASE_URL;
 const db = new pg.Pool({
   connectionString,
