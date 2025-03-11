@@ -1,4 +1,4 @@
-SET CLIENT_MIN_MESSAGES TO warning;
+SET client_min_messages TO warning;
 
 -- DANGER: this is NOT how to do it in the real world.
 -- `DROP SCHEMA` INSTANTLY ERASES EVERYTHING.
@@ -25,6 +25,9 @@ CREATE TABLE "public"."cart" (
 
 CREATE TABLE "public"."users" (
   "userId"           serial,
+  "firstName"        text NOT NULL,
+  "lastName"         text NOT NULL,
+  "email"            text NOT NULL,
   "username"         text NOT NULL,
   "hashedPassword"   text NOT NULL,
   "createdAt"        timestamptz,
