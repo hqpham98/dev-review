@@ -29,9 +29,10 @@ export function Catalog() {
   return (
     <div className="container mx-auto p-4 bg-[#fdfdff]">
       <div className="text-xl border-b-1 border-gray-200">Catalog</div>
+      {/* Card Rows Container */}
       <div className="container flex flex-wrap justify-center sm:justify-start p-2 ">
         {products.map((p) => (
-          <Card product={p} />
+          <Card key={p.productId} product={p} />
         ))}
       </div>
     </div>
